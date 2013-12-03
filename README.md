@@ -1,29 +1,8 @@
 # Pong
 
-TODO: Write a gem description
+This is an example project for examination of refactoring and testing practices on [rubylove.io](http://rubylove.io). The original concept and source code was presented @ RubyMadison 2013 by Michael Fairly.
 
-## Installation
+His project [Hasu](https://github.com/michaelfairley/hasu) is awesome. This refactor is in no sense a 'dig' on Michael's code. Code written for a presentation needs to be readable without too many disambiguations. However, in production code, abstractions are the way of life.
 
-Add this line to your application's Gemfile:
 
-    gem 'pong'
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install pong
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
