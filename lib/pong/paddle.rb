@@ -1,8 +1,12 @@
+require 'pong/paddles/input'
+
 module Pong
   class Paddle
     WIDTH = 16
     HEIGHT = 96
     SPEED = 6
+
+    include Pong::Paddles::Input
 
     attr_reader :side, :y, :ai
     alias ai? ai

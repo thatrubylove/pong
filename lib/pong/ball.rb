@@ -1,5 +1,9 @@
+require 'pong/balls/intersection'
+
 module Pong
   class Ball
+    include Pong::Balls::Intersection
+
     SIZE = 16
 
     attr_reader :x, :y, :angle, :speed
@@ -57,19 +61,12 @@ module Pong
     def off_right?
       x2 > Game::WIDTH
     end
-
-    def intersect?(paddle)
-      x1 < paddle.x2 &&
-        x2 > paddle.x1 &&
-        y1 < paddle.y2 &&
-        y2 > paddle.y1
-    end
-
+    
     def bounce_off_paddle!(paddle)
       case paddle.side
       when :left
-        @x = paddle.x2 + SIZE/2
       when :right
+        @x = paddle.x2 + SIZE/2
         @x = paddle.x1 - SIZE/2
       end
 

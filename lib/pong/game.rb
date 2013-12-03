@@ -1,3 +1,4 @@
+
 module Pong
   class Game < Hasu::Window
     WIDTH = 768
@@ -6,6 +7,8 @@ module Pong
     def initialize
       super(WIDTH, HEIGHT, false)
     end
+
+    attr_reader :ball, :left_paddle
 
     def reset
       @ball = Ball.new
@@ -32,22 +35,10 @@ module Pong
     def update
       @ball.move!
 
-      if @left_paddle.ai?
-        @left_paddle.ai_move!(@ball)
-      else
-        if button_down?(Gosu::KbW)
-          @left_paddle.up!
-        end
-        if button_down?(Gosu::KbS)
-          @left_paddle.down!
-        end
-      end
-      if button_down?(Gosu::KbUp)
-        @right_paddle.up!
-      end
-      if button_down?(Gosu::KbDown)
-        @right_paddle.down!
-      end
+      @left_paddle.ai? ? @left_paddle.ai_move!(@ball) :
+                         @left_paddle.handle_input(&method(:button_down?))
+
+      @right_paddle.handle_input(&method(:button_down?))
 
       if @ball.intersect?(@left_paddle)
         @ball.bounce_off_paddle!(@left_paddle)
