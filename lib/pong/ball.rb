@@ -1,8 +1,5 @@
-require 'pong/balls/intersection'
-
 module Pong
   class Ball
-    include Pong::Balls::Intersection
 
     SIZE = 16
 
@@ -77,6 +74,11 @@ module Pong
       @speed *= 1.1
     end
 
+    def intersect?(paddle)
+      x1 < paddle.x2   && x2 > paddle.x1 &&
+        y1 < paddle.y2 && y2 > paddle.y1
+
+    end
 
     def handle_collisions!(*paddles)
       paddles.each do |paddle|
