@@ -8,6 +8,8 @@ module Pong
       super(WIDTH, HEIGHT, false)
     end
 
+
+
     def reset
       @ball  = Ball.new
       @court = Court.new

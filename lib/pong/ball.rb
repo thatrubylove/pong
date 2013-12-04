@@ -3,8 +3,12 @@ module Pong
 
     SIZE = 16
     TOP = 100
-
+    
+    BLIP1 = Gosu::Sample.new(File.expand_path("../../../media/blip1.wav", __FILE__))
+    BLIP2 = Gosu::Sample.new(File.expand_path("../../../media/blip2.wav", __FILE__))
+    
     attr_reader :x, :y, :angle, :speed
+    
     def initialize
       @x = Court::WIDTH/2
       @y = Court::HEIGHT/2
@@ -34,6 +38,7 @@ module Pong
 
     def bounce_off_edge!
       @angle = Gosu.angle(0, 0, dx, -dy)
+      BLIP1.play
     end
 
     def x1; @x - SIZE/2; end
@@ -73,6 +78,7 @@ module Pong
       @angle *= -1  if paddle.side == :right
 
       @speed *= 1.1
+      BLIP2.play
     end
 
     def intersect?(paddle)
