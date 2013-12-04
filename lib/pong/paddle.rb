@@ -2,6 +2,7 @@ require 'pong/paddles/input'
 
 module Pong
   class Paddle
+    TOP = 100
     WIDTH = 16
     HEIGHT = 96
     SPEED = 6
@@ -15,7 +16,7 @@ module Pong
     def initialize(side, ai=false)
       @ai = ai
       @side = side
-      @y = Game::HEIGHT/2
+      @y = Court::HEIGHT/2
     end
 
     def ai_move!(ball)
@@ -33,7 +34,7 @@ module Pong
       when :left
         0
       when :right
-        Game::WIDTH - WIDTH
+        Court::WIDTH - WIDTH
       end
     end
 
@@ -63,16 +64,16 @@ module Pong
     def up!
       @y -= SPEED
 
-      if y1 < 0
-        @y = HEIGHT/2
+      if y1 < TOP
+        @y = HEIGHT+TOP/2
       end
     end
 
     def down!
       @y += SPEED
 
-      if y2 > Game::HEIGHT
-       @y = Game::HEIGHT - HEIGHT/2
+      if y2 > Court::HEIGHT+TOP
+       @y = Court::HEIGHT+TOP - HEIGHT/2
       end
     end
   end

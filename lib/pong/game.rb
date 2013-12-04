@@ -1,22 +1,21 @@
-
 module Pong
   class Game < Hasu::Window
+
     WIDTH  = 768
-    HEIGHT = 576
+    HEIGHT = 776
 
     def initialize
       super(WIDTH, HEIGHT, false)
     end
 
-    attr_reader :ball, :left_paddle
-
     def reset
-      @ball = Ball.new
+      @ball  = Ball.new
+      @court = Court.new
 
       @left_score = 0
       @right_score = 0
 
-      @font = Gosu::Font.new(self, "Arial", 30)
+      @font = Gosu::Font.new(self, "Arial", 90)
 
       @left_paddle = Paddle.new(:left, true)
       @right_paddle = Paddle.new(:right)
@@ -24,9 +23,9 @@ module Pong
 
     def draw
       @ball.draw(self)
-
-      @font.draw(@left_score, 30, 30, 0)
-      @font.draw(@right_score, WIDTH-50, 30, 0)
+      @court.draw(self)
+      @font.draw(@left_score,  (WIDTH/2)-200, 0, 0)
+      @font.draw(@right_score, (WIDTH/2)+200, 0, 0)
 
       @left_paddle.draw(self)
       @right_paddle.draw(self)

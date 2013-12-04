@@ -2,11 +2,12 @@ module Pong
   class Ball
 
     SIZE = 16
+    TOP = 100
 
     attr_reader :x, :y, :angle, :speed
     def initialize
-      @x = Game::WIDTH/2
-      @y = Game::HEIGHT/2
+      @x = Court::WIDTH/2
+      @y = Court::HEIGHT/2
 
       @angle = rand(120) + 30
       @angle *= -1  if rand > 0.5
@@ -20,13 +21,13 @@ module Pong
       @x += dx
       @y += dy
 
-      if @y < 0
-        @y = 0
+      if @y < TOP
+        @y = TOP
         bounce_off_edge!
       end
 
-      if @y > Game::HEIGHT
-        @y = Game::HEIGHT
+      if @y > Court::HEIGHT+TOP
+        @y = Court::HEIGHT+TOP
         bounce_off_edge!
       end
     end
@@ -56,10 +57,10 @@ module Pong
     end
 
     def off_right?
-      x2 > Game::WIDTH
+      x2 > Court::WIDTH
     end
     
-    def bounce_off(paddle)
+    def bounce_off_paddle!(paddle)
       case paddle.side
       when :left
       when :right
@@ -82,7 +83,7 @@ module Pong
 
     def handle_collisions!(*paddles)
       paddles.each do |paddle|
-        bounce_off(paddle) if intersect?(paddle)
+        bounce_off_paddle!(paddle) if intersect?(paddle)
       end
     end
 
