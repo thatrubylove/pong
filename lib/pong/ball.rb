@@ -62,7 +62,7 @@ module Pong
       x2 > Game::WIDTH
     end
     
-    def bounce_off_paddle!(paddle)
+    def bounce_off(paddle)
       case paddle.side
       when :left
       when :right
@@ -75,6 +75,21 @@ module Pong
       @angle *= -1  if paddle.side == :right
 
       @speed *= 1.1
+    end
+
+
+    def handle_collisions!(*paddles)
+      paddles.each do |paddle|
+        bounce_off(paddle) if intersect?(paddle)
+      end
+    end
+
+    def handle_scoring!(left_score, right_score)
+      return [self, left_score, right_score] unless off_left? || off_right?
+
+      right_score += 1 if off_left?
+      left_score  += 1 if off_right?
+      [Ball.new, left_score, right_score]
     end
   end
 end

@@ -1,11 +1,8 @@
 module Pong
   module Paddles
     module Input
-      extend Forwardable
 
-      def_delegator :@game, :button_down?
-
-      def handle_input(&meth)
+      def handle_input!(&meth)
         return up!   if meth.call(up_button)
         return down! if meth.call(down_button)
       end

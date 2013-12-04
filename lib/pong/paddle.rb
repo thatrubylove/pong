@@ -9,7 +9,9 @@ module Pong
     include Pong::Paddles::Input
 
     attr_reader :side, :y, :ai
+
     alias ai? ai
+
     def initialize(side, ai=false)
       @ai = ai
       @side = side

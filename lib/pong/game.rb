@@ -1,7 +1,7 @@
 
 module Pong
   class Game < Hasu::Window
-    WIDTH = 768
+    WIDTH  = 768
     HEIGHT = 576
 
     def initialize
@@ -36,26 +36,12 @@ module Pong
       @ball.move!
 
       @left_paddle.ai? ? @left_paddle.ai_move!(@ball) :
-                         @left_paddle.handle_input(&method(:button_down?))
+                         @left_paddle.handle_input!(&method(:button_down?))
 
-      @right_paddle.handle_input(&method(:button_down?))
+      @right_paddle.handle_input!(&method(:button_down?))
 
-      if @ball.intersect?(@left_paddle)
-        @ball.bounce_off_paddle!(@left_paddle)
-      end
-      if @ball.intersect?(@right_paddle)
-        @ball.bounce_off_paddle!(@right_paddle)
-      end
-
-      if @ball.off_left?
-        @right_score += 1
-        @ball = Ball.new
-      end
-
-      if @ball.off_right?
-        @left_score += 1
-        @ball = Ball.new
-      end
+      @ball.handle_collisions!(@left_paddle, @right_paddle)
+      @ball, @left_score, @right_score = @ball.handle_scoring!(@left_score, @right_score)
     end
 
     def button_down(button)
